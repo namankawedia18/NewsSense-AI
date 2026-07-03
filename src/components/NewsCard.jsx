@@ -6,12 +6,15 @@ function NewsCard({ article }) {
                 src={article.image}
                 alt={article.title}
                 className="w-full h-52 object-cover"
+                onError={(e) => {
+                    e.target.src = "https://placehold.co/600x400?text=No+Image";
+                }}
             />
 
             <div className="p-5">
 
                 <span className="inline-block bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full">
-                    {article.category}
+                    {article.source}
                 </span>
 
                 <h2 className="text-xl font-bold mt-4">
@@ -19,7 +22,7 @@ function NewsCard({ article }) {
                 </h2>
 
                 <p className="text-gray-600 mt-3">
-                    {article.description}
+                    {article.description || "No description available."}
                 </p>
 
                 <a

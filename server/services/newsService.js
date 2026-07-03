@@ -3,12 +3,13 @@ const axios = require("axios");
 const fetchTopHeadlines = async () => {
     try {
         const response = await axios.get(
-            "https://newsapi.org/v2/top-headlines",
+            "https://gnews.io/api/v4/top-headlines",
             {
                 params: {
-                    country: "us",
-                    pageSize: 12,
-                    apiKey: process.env.NEWS_API_KEY,
+                    lang: "en",
+                    country: "in",
+                    max: 12,
+                    apikey: process.env.GNEWS_API_KEY,
                 },
             }
         );
