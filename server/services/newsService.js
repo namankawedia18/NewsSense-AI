@@ -1,18 +1,26 @@
 const axios = require("axios");
 
-const fetchTopHeadlines = async () => {
+const BASE_URL = "https://gnews.io/api/v4";
+
+const fetchNews = async (query = "") => {
     try {
-        const response = await axios.get(
-            "https://gnews.io/api/v4/top-headlines",
-            {
-                params: {
-                    lang: "en",
-                    country: "in",
-                    max: 12,
-                    apikey: process.env.GNEWS_API_KEY,
-                },
-            }
-        );
+        const endpoint = query ? "/search" : "/top-headlines";
+
+        const params = {
+            apikey: process.env.GNEWS_API_KEY,
+            lang: "en",
+            country: "in",
+            max: 12,
+        };
+
+        if (query) {
+            params.q = query;
+            delete params.country; // GNews search doesn't support country
+        }
+
+        const response = await axios.get(`${BASE_URL}${endpoint}`, {
+            params,
+        });
 
         return response.data.articles;
     } catch (error) {
@@ -21,5 +29,5 @@ const fetchTopHeadlines = async () => {
 };
 
 module.exports = {
-    fetchTopHeadlines,
+    fetchNews,
 };

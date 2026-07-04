@@ -1,11 +1,8 @@
 const express = require("express");
-
 const router = express.Router();
 
-const {
-    getTopHeadlines,
-} = require("../controllers/newsController");
+const { getNews } = require("../controllers/newsController");
 
-router.get("/", getTopHeadlines);
+router.get("/", getNews);
 
 module.exports = router;

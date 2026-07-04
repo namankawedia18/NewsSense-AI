@@ -5,28 +5,28 @@ import Hero from "../components/Hero";
 import CategoryBar from "../components/CategoryBar";
 import NewsCard from "../components/NewsCard";
 
-import { getTopHeadlines } from "../services/newsApi";
+import { fetchNews } from "../services/newsApi";
 
 function Home() {
   const [articles, setArticles] = useState([]);
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const news = await getTopHeadlines();
-        setArticles(news);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const loadNews = async (query = "") => {
+    try {
+      const news = await fetchNews(query);
+      setArticles(news);
+    } catch (error) {
+      console.error("Error fetching news:", error);
+    }
+  };
 
-    fetchNews();
+  useEffect(() => {
+    loadNews();
   }, []);
 
   return (
     <>
       <Navbar />
-      <Hero />
+      <Hero onSearch={loadNews} />
       <CategoryBar />
 
       <div className="max-w-7xl mx-auto px-6 py-12">

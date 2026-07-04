@@ -1,8 +1,10 @@
-const { fetchTopHeadlines } = require("../services/newsService");
+const { fetchNews } = require("../services/newsService");
 
-const getTopHeadlines = async (req, res) => {
+const getNews = async (req, res) => {
     try {
-        const articles = await fetchTopHeadlines();
+        const query = req.query.query || "";
+
+        const articles = await fetchNews(query);
 
         const formattedArticles = articles.map((article, index) => ({
             id: index + 1,
@@ -32,5 +34,5 @@ const getTopHeadlines = async (req, res) => {
 };
 
 module.exports = {
-    getTopHeadlines,
+    getNews,
 };

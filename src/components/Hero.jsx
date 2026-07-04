@@ -1,37 +1,51 @@
-function Hero() {
-    return (
-        <section className="bg-gray-100 py-20">
-            <div className="max-w-5xl mx-auto text-center px-6">
+import { useState } from "react";
 
-                <h1 className="text-5xl font-bold text-gray-900 leading-tight">
-                    Stay Informed with
-                    <span className="text-blue-600"> AI-Powered News</span>
-                </h1>
+function Hero({ onSearch }) {
+  const [query, setQuery] = useState("");
 
-                <p className="mt-6 text-lg text-gray-600">
-                    Read the latest news from trusted sources,
-                    analyze sentiment, and discover stories that matter to you.
-                </p>
+  const handleSearch = () => {
+    onSearch(query);
+  };
 
-                <div className="mt-10">
-                    <input
-                        type="text"
-                        placeholder="Search news..."
-                        className="w-full md:w-2/3 px-5 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      onSearch(query);
+    }
+  };
 
-                <div className="mt-6">
-                    <button
-                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
-                    >
-                        Explore Latest News
-                    </button>
-                </div>
+  return (
+    <section className="bg-gray-100 py-20">
+      <div className="max-w-5xl mx-auto text-center px-6">
+        <h1 className="text-5xl font-bold text-gray-900 leading-tight">
+          Stay Informed with
+          <span className="text-blue-600"> AI-Powered News</span>
+        </h1>
 
-            </div>
-        </section>
-    );
+        <p className="mt-6 text-lg text-gray-600">
+          Read the latest news from trusted sources, analyze sentiment, and
+          discover stories that matter to you.
+        </p>
+
+        <div className="mt-10 flex flex-col md:flex-row justify-center items-center gap-4">
+          <input
+            type="text"
+            placeholder="Search news..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="w-full md:w-2/3 px-5 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <button
+            onClick={handleSearch}
+            className="bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition duration-300"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default Hero;
