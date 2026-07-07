@@ -14,21 +14,25 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const loadNews = async (query = "") => {
+    console.log("Loading news with query:", query);
+
     try {
       setLoading(true);
-      setSearchQuery(query);
 
       const news = await fetchNews(query);
+
+      console.log("News received:", news);
+
       setArticles(news || []);
     } catch (error) {
-      console.error("Error fetching news:", error);
-      setArticles([]);
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    console.log("Home mounted");
     loadNews();
   }, []);
 
