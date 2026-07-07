@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import FeaturedNews from "../components/home/FeaturedNews";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import CategoryBar from "../components/CategoryBar";
@@ -36,10 +36,13 @@ function Home() {
     loadNews();
   }, []);
 
+  const featuredArticle = articles.length > 0 ? articles[0] : null;
+
   return (
     <>
       <Navbar />
       <Hero onSearch={loadNews} loading={loading} />
+      <FeaturedNews article={featuredArticle} />
       <CategoryBar />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
@@ -55,7 +58,7 @@ function Home() {
           </div>
         ) : articles.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.map((article) => (
+            {articles.slice(1).map((article) => (
               <NewsCard
                 key={article.id}
                 article={article}
